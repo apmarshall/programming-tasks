@@ -74,26 +74,92 @@ Function Code:
 ## PHP
 
 Unit Tests (PHPUnit):
+	class AdditionTest extends TestCase
+	{
+		/**
+		* @dataProvider additionProvider
+		*/
+		public function testAdd($a, $b, $expected) 
+		{
+			this->assertSame($expected, $a + $b);
+		}
+		
+		public function additionProvider()
+		{
+			return [
+				[2, 2, 4],
+				[3, 2, 5],
+				[-3, 2, -1],
+				[-1000, 1000, 0],
+				[10, 0, 10],
+				[0, 0, 0],
+				[-1000, 10, -990]
+			];
+		}
+	}
 
 Function Code:
+	public function add($a, $b)
+	{
+		return $a + $b;
+	}
 
-
-## JavaScript
+## TypeScript
 
 Unit Tests (Jest):
 
-Function Code:
+	test.each([[2,2,4],[3,2,5],[-3,2,-1],[-1000,1000,0],[10,0,10],[0,0,0],[-1000,10,-990]])(
+		'adding %i to %i returns %i',
+		(a, b, expected) => {
+			expect(a + b).toBe(expected);
+		},
+	);
 
+Function Code:
+	function add(a :int, b :int) {
+		return a + b;
+	}
 
 ## Shell
 
-Unit Tests:
+Unit Tests (Bats):
+	@test "2 + 2" {
+		$result="$(add 2 2)"
+		["$result" -eq 4]
+	}
+	@test "3 + 2" {
+		$result="$(add 3 2)"
+		["$result" -eq 5]
+	}
+	@test "-3 + 2" {
+		$result="$(add -3 2)"
+		["$result" -eq -1]
+	}
+	@test "-1000 + 1000" {
+		$result="$(add -1000 1000)"
+		["$result" -eq 0]
+	}
+	@test "10 + 0" {
+		$result="$(add 10 0)"
+		["$result" -eq 10]
+	}
+	@test "0 + 0" {
+		$result="$(add 0 0)"
+		["$result" -eq 0]
+	}
+	@test "-1000 + 10" {
+		$result="$(add -1000 10)"
+		["$result" -eq -990]
+	}
 
 Function Code:
-
+	add() {
+		return $1 + $2
+	}
 
 ## SQL
 
 Unit Tests:
+
 
 Function Code:
